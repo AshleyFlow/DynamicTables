@@ -1,0 +1,10 @@
+{
+    "name": "dynamic_tables",
+    "tree": {
+        "$className": "DataModel",
+        "$path": "Packages",
+        "init": {
+            "$path": "src"
+        }
+    }
+}

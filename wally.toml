@@ -1,0 +1,9 @@
+[package]
+name = "highflowey/dynamictables"
+version = "0.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]
+bridgenet2 = "ffrostflame/bridgenet2@1.0.0"
+signal = "sleitnick/signal@2.0.1"

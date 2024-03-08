@@ -1,15 +1,16 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-local BridgeNet2 = require(script:WaitForChild("BridgeNet2"))
-local TableLib = require(script:WaitForChild("TableLib"))
-local Signal = require(script:WaitForChild("Signal"))
+local BridgeNet2 = require(script.Parent.bridgenet2)
+local Signal = require(script.Parent.signal)
 
 local bridge = BridgeNet2.ReferenceBridge("DynamicTables")
 local tables = {}
 
 function Main(key: string)
-	if tables[key] then return tables[key] end
+	if tables[key] then
+		return tables[key]
+	end
 
 	local length = 0
 	local t = {}
@@ -24,9 +25,11 @@ function Main(key: string)
 
 	if RunService:IsServer() then
 		RunService.Heartbeat:Connect(function()
-			if changesHappened == false then return end
+			if changesHappened == false then
+				return
+			end
 
-			bridge:Fire(BridgeNet2.AllPlayers(), {1, key, changes})
+			bridge:Fire(BridgeNet2.AllPlayers(), { 1, key, changes })
 
 			changes = {}
 			changesHappened = false
@@ -36,7 +39,7 @@ function Main(key: string)
 	meta.__index = array
 	meta.__newindex = function(_, i, v)
 		local old = array[i]
-		
+
 		changes[i] = v
 		changesHappened = true
 		array[i] = v
@@ -105,7 +108,7 @@ end
 if RunService:IsServer() then
 	local function PlayerAdded(player: Player)
 		for i, v in tables do
-			bridge:Fire(player, {0, i, v:GetData()})
+			bridge:Fire(player, { 0, i, v:GetData() })
 		end
 	end
 
